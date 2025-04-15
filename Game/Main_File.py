@@ -5,7 +5,6 @@ from Sprites import *
 from os import path
 from TileMap import *
 import random
-
 class Game:
     def __init__(self):
         # Размер окна и приведение к готовности запуска
@@ -112,6 +111,8 @@ class Game:
 
     def show_victory_screen(self):
         self.screen.fill((0, 0, 0))
+        pygame.mixer.sound.load("sounds/win.mp3)
+        pygame.mixer.sound.play(0)
         self.draw_text("You Win!", self.font, 74, (0, 250, 154), WIDTH / 2, HEIGHT / 2 - 50, align="center")
         self.draw_text("Press ESC to Quit", self.font, 36, (0, 250, 154), WIDTH / 2, HEIGHT / 2 + 50, align="center")
         pygame.display.flip()
@@ -141,6 +142,7 @@ class Game:
             if not self.paused:
                 self.update()
             self.draw()
+            
 
     def update(self):
         # Обновление кадров
@@ -159,6 +161,8 @@ class Game:
             self.player.pos = vec(self.player_spawn_x, self.player_spawn_y)  # Перемещаем игрока на спавн
             self.player.vel = vec(0, 0)  # Сбрасываем скорость
             self.player.rect.midbottom = self.player.pos  # Обновляем позицию rect
+            pygame.mixer.music.load("sounds/noob.mp3")
+            pygame.mixer.music.play(0)
             self.check_health()  # Уменьшаем здоровье
         #Проверка на столкновение, только если падает
         if self.player.vel.y > 0:
@@ -213,6 +217,8 @@ class Game:
     def show_gameover_screen(self):
         # Экран при проигрыше
         self.screen.fill((0, 0, 0))  # Черный фон
+        pygame.mixer.sound.load("sounds/loose.mp3")
+        pygame.mixer.sound.play(0)
         self.draw_text("Game Over", self.font, 74, (0, 250, 154), WIDTH / 2, HEIGHT / 2 - 50, align="center")
         self.draw_text("Press R to Restart or ESC to Quit", self.font, 36, (0, 250, 154), WIDTH / 2, HEIGHT / 2 + 50,
                        align="center")
